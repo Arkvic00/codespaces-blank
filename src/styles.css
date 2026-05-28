@@ -1,0 +1,18 @@
+/* Archivo de estilos vacío: Tailwind CDN se encarga de la mayoría de estilos.
+   Se deja para extensiones locales futuras. */
+
+html, body, #root { height: 100%; }
+
+/* Loading syringe animation */
+.syringe-wrap { width: 140px; height: 220px; display:flex; align-items:center; justify-content:center; }
+.syringe { width: 80px; height: 200px; }
+.syringe .liquid { fill: #0ea5e9; }
+.syringe .liquid-mask { transform-origin: center bottom; animation: fillUp 1.6s infinite linear; }
+
+@keyframes fillUp {
+   0% { transform: translateY(40px); }
+   50% { transform: translateY(0px); }
+   100% { transform: translateY(40px); }
+}
+
+.loader-title { font-weight: 900; letter-spacing: 0.18em; }
