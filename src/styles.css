@@ -1,18 +1,38 @@
-/* Archivo de estilos vacío: Tailwind CDN se encarga de la mayoría de estilos.
-   Se deja para extensiones locales futuras. */
+/* Archivo de estilos para extensiones locales */
 
-html, body, #root { height: 100%; }
+html, body, #root { height: 100%; width: 100%; margin: 0; padding: 0; }
 
-/* Loading syringe animation */
-.syringe-wrap { width: 140px; height: 220px; display:flex; align-items:center; justify-content:center; }
-.syringe { width: 80px; height: 200px; }
-.syringe .liquid { fill: #0ea5e9; }
-.syringe .liquid-mask { transform-origin: center bottom; animation: fillUp 1.6s infinite linear; }
-
-@keyframes fillUp {
-   0% { transform: translateY(40px); }
-   50% { transform: translateY(0px); }
-   100% { transform: translateY(40px); }
+/* Ensure select options are visible */
+select {
+  color-scheme: dark;
+  background-color: #1a1a1a;
 }
 
-.loader-title { font-weight: 900; letter-spacing: 0.18em; }
+select option {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+/* Ensure input placeholders are visible */
+input::placeholder {
+  color: rgb(100, 116, 139);
+}
+
+/* Remove default browser scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

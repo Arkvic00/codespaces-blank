@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react'
-import { X, ChevronDown, AlertTriangle } from 'lucide-react'
+import { X, ChevronDown } from 'lucide-react'
 import { useAppContext } from '../context/AppContext'
-import { getSpeciesProtocols } from '../utils/species'
 
 export default function DrugModal({ drugId, open, onClose, onApply, calc }) {
   const { DB_MEDICAMENTOS, patient } = useAppContext()
@@ -17,20 +16,19 @@ export default function DrugModal({ drugId, open, onClose, onApply, calc }) {
     setPresentationIndex(0)
     setProtocolIndex(0)
     if (calc) {
-      setDoseValue(calc.dose ?? (getSpeciesProtocols(drug, patient.especie)?.[0]?.math?.dosis_recomendada ?? ''))
+      setDoseValue(calc.dose ?? (drug.parametros_dosificacion?.[patient.especie]?.[0]?.math?.dosis_recomendada ?? ''))
       setConcentrationValue(calc.concentration ?? pres?.valor_concentracion ?? '')
     } else {
-      setDoseValue(getSpeciesProtocols(drug, patient.especie)?.[0]?.math?.dosis_recomendada ?? '')
+      setDoseValue(drug.parametros_dosificacion?.[patient.especie]?.[0]?.math?.dosis_recomendada ?? '')
       setConcentrationValue(pres?.valor_concentracion ?? '')
     }
   }, [drugId, drug, calc, patient.especie])
 
-  const availableProtocols = getSpeciesProtocols(drug, patient.especie)
-
   const selectedProtocol = useMemo(() => {
     if (!drug) return null
-    return availableProtocols[protocolIndex] || availableProtocols[0] || null
-  }, [availableProtocols, protocolIndex])
+    const list = drug.parametros_dosificacion?.[patient.especie] || []
+    return list[protocolIndex] || list[0] || null
+  }, [drug, protocolIndex, patient.especie])
 
   const selectedPresentation = useMemo(() => {
     if (!drug) return null
@@ -46,30 +44,14 @@ export default function DrugModal({ drugId, open, onClose, onApply, calc }) {
       return concNum > 0 ? ((peso * doseNum) / concNum) : 0
     }
     const tipo = selectedProtocol.math?.tipo_calculo || 'mg/kg'
-    if (tipo === 'mg/kg' || tipo === 'mg/kg/h') {
+    if (tipo === 'mg/kg') {
       return concNum > 0 ? ((peso * doseNum) / concNum) : 0
-    }
-    if (tipo === 'mg/ml') {
-      return concNum > 0 ? (doseNum / concNum) : 0
     }
     if (tipo === 'fija') {
       return concNum > 0 ? (doseNum / concNum) : 0
     }
     return 0
   }, [peso, doseNum, concNum, selectedProtocol])
-
-  const warningMessages = []
-  if (selectedProtocol?.math) {
-    if (doseNum > selectedProtocol.math.dosis_max) {
-      warningMessages.push(`Dosis superior al máximo recomendado (${selectedProtocol.math.dosis_max} ${selectedProtocol.math.unidad_calculo}).`)
-    }
-    if (doseNum < selectedProtocol.math.dosis_min) {
-      warningMessages.push(`Dosis menor al mínimo recomendado (${selectedProtocol.math.dosis_min} ${selectedProtocol.math.unidad_calculo}).`)
-    }
-  }
-  if (concNum <= 0) {
-    warningMessages.push('La concentración debe ser mayor a 0 mg/ml.')
-  }
 
   if (!open || !drug) return null
 
@@ -94,24 +76,14 @@ export default function DrugModal({ drugId, open, onClose, onApply, calc }) {
 
             <label className="text-xs text-slate-400 uppercase">Protocolo</label>
             <select value={protocolIndex} onChange={e => setProtocolIndex(Number(e.target.value))} className="w-full p-3 rounded-xl bg-[#0b1220] border border-white/5 text-white">
-              {availableProtocols.map((prot, i) => (<option key={i} value={i}>{prot.indicacion || `Protocolo ${i+1}`}</option>))}
+              {(drug.parametros_dosificacion?.[patient.especie] || []).map((prot, i) => (<option key={i} value={i}>{prot.indicacion || `Protocolo ${i+1}`}</option>))}
             </select>
 
             <label className="text-xs text-slate-400 uppercase">Dosis ({selectedProtocol?.math?.unidad_calculo || 'mg/kg'})</label>
             <input type="number" value={doseValue} onChange={e => setDoseValue(e.target.value)} className="w-full p-3 rounded-xl bg-[#0b1220] border border-white/5 text-white" />
 
-            <label className="text-xs text-slate-400 uppercase">Concentración ({selectedPresentation?.unidad_concentracion || 'mg/ml'})</label>
+            <label className="text-xs text-slate-400 uppercase">Concentración (mg/ml)</label>
             <input type="number" value={concentrationValue} onChange={e => setConcentrationValue(e.target.value)} className="w-full p-3 rounded-xl bg-[#0b1220] border border-white/5 text-white" />
-            <div className="mt-3 text-slate-400 text-sm">Tipo de cálculo: {selectedProtocol?.math?.tipo_calculo || 'N/A'}</div>
-
-            {warningMessages.length > 0 && (
-              <div className="mt-4 rounded-3xl border border-red-500/20 bg-red-950/60 p-4 text-sm text-slate-200">
-                <div className="flex items-center gap-2 mb-2 text-red-300 font-bold uppercase tracking-[0.25em]"><AlertTriangle size={16} /> Atención</div>
-                <ul className="list-disc list-inside space-y-2">
-                  {warningMessages.map((message, index) => <li key={index}>{message}</li>)}
-                </ul>
-              </div>
-            )}
           </div>
 
           <div className="bg-[#0b1220] rounded-2xl p-6 flex flex-col items-center justify-center">

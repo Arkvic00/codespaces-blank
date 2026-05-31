@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "node --watch index.js"
+    "start:no-redis": "REDIS_DISABLED=true node index.js",
+    "dev": "node --watch index.js",
+    "dev:no-redis": "REDIS_DISABLED=true node --watch index.js"
   },
   "dependencies": {
     "better-sqlite3": "^12.10.0",

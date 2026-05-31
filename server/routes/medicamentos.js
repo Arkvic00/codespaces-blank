@@ -150,24 +150,6 @@ router.get('/especie/:especieId', async (req, res, next) => {
 });
 
 /**
- * GET /api/medicamentos/:id
- * Obtener medicamento específico por ID
- */
-router.get('/:id', async (req, res, next) => {
-  try {
-    const cacheKey = `medicamentos:id:${req.params.id.toLowerCase()}`;
-    const medicamento = await cachedResponse(cacheKey, async () => MedicamentosService.getById(req.params.id));
-    
-    res.json({
-      success: true,
-      data: medicamento
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-/**
  * GET /api/medicamentos/:id/resumen
  * Obtener resumen de medicamento
  */
@@ -179,6 +161,24 @@ router.get('/:id/resumen', async (req, res, next) => {
     res.json({
       success: true,
       data: resumen
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * GET /api/medicamentos/:id
+ * Obtener medicamento específico por ID
+ */
+router.get('/:id', async (req, res, next) => {
+  try {
+    const cacheKey = `medicamentos:id:${req.params.id.toLowerCase()}`;
+    const medicamento = await cachedResponse(cacheKey, async () => MedicamentosService.getById(req.params.id));
+    
+    res.json({
+      success: true,
+      data: medicamento
     });
   } catch (error) {
     next(error);

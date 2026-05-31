@@ -5,14 +5,16 @@ export const SPECIES_LIST = [
     { id: 'bovino', label: 'BOVINO', icon: '🐮' },
     { id: 'cerdo', label: 'CERDO', icon: '🐷' },
     { id: 'ovino_caprino', label: 'OVINO_CAPRINO', icon: '🐐' },
+    { id: 'reptiles', label: 'REPTILES', icon: '🦎' },
+    { id: 'aves', label: 'AVES', icon: '🦜' },
+    { id: 'aves_corral', label: 'AVES DE CORRAL', icon: '🐔' },
+    { id: 'sugar_gliders', label: 'SUGAR GLIDERS', icon: '🐿️' },
+    { id: 'erizos', label: 'ERIZOS', icon: '🦔' },
     { id: 'roedores', label: 'ROEDORES', icon: '🐭' },
     { id: 'conejo', label: 'CONEJO', icon: '🐰' },
-    { id: 'mustelidos', label: 'MUSTÉLIDOS', icon: '🦦' },
-    { id: 'cobaya', label: 'COBAYA', icon: '🐹' },
-    { id: 'erizo', label: 'ERIZO', icon: '🦔' },
-    { id: 'ave', label: 'AVE', icon: '🦜' },
-    { id: 'reptil', label: 'REPTIL', icon: '🦎' },
+    { id: 'hurones', label: 'HURONES', icon: '🦦' },
     { id: 'primates', label: 'PRIMATES', icon: '🐒' },
+    { id: 'cobaya', label: 'COBAYA', icon: '🐹' },
     { id: 'axolote', label: 'AXOLOTE', icon: '👾' }
 ];
 

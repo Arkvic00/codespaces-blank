@@ -1,8 +1,6 @@
-import React, { createContext, useContext, useRef, useState, useMemo, useEffect } from 'react'
+import React, { createContext, useContext, useRef, useState, useMemo } from 'react'
 import useLocalStorage from '../hooks/useLocalStorage'
-import { SPECIES_LIST, DB_MEDICAMENTOS as LOCAL_MEDICAMENTOS } from '../data/medicamentos'
-import apiClient from '../services/apiClient'
-import { getSpeciesProtocols, expandSpeciesKey } from '../utils/species'
+import DB_MEDICAMENTOS, { SPECIES_LIST } from '../data/medicamentos'
 
 const AppContext = createContext(null)
 
@@ -13,49 +11,10 @@ export function AppContextProvider({ children }) {
   const [calcs, setCalcs] = useLocalStorage('calcs_v3', [])
   const [favorites, setFavorites] = useLocalStorage('drug_favorites', [])
   const [drugImages, setDrugImages] = useLocalStorage('drug_images_custom', {})
-  const [calcHistory, setCalcHistory] = useLocalStorage('calc_history_v3', [])
-
-  // API States
-  const [DB_MEDICAMENTOS, setDB_MEDICAMENTOS] = useState([])
-  const [apiLoading, setApiLoading] = useState(true)
-  const [apiError, setApiError] = useState(null)
 
   const [searchTerm, setSearchTerm] = useState('')
-  const [filterGroup, setFilterGroup] = useState('')
-  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
   const [uploadingId, setUploadingId] = useState(null)
   const fileInputRef = useRef(null)
-
-  // Load medications from API on mount
-  useEffect(() => {
-    const loadMedicamentos = async () => {
-      try {
-        setApiLoading(true)
-        setApiError(null)
-        const response = await apiClient.getMedicamentos(500, 0)
-        if (response.success && response.data) {
-          const medicamentos = response.data.data ?? response.data
-          setDB_MEDICAMENTOS(Array.isArray(medicamentos) ? medicamentos : medicamentos.data ?? [])
-        } else {
-          throw new Error('Invalid API response')
-        }
-      } catch (error) {
-        console.error('Error loading medicamentos from API:', error)
-        setApiError(error.message)
-        setDB_MEDICAMENTOS(LOCAL_MEDICAMENTOS)
-      } finally {
-        setApiLoading(false)
-      }
-    }
-    loadMedicamentos()
-    // safety timeout: if API never resolves, stop showing global loading after 3s
-    const safety = setTimeout(() => {
-      setApiLoading(false)
-      if (!DB_MEDICAMENTOS || DB_MEDICAMENTOS.length === 0) setDB_MEDICAMENTOS(LOCAL_MEDICAMENTOS)
-      console.warn('API load safety timeout triggered — using local medicamentos')
-    }, 3000)
-    return () => clearTimeout(safety)
-  }, [])
 
   // Fluidoterapia states
   const [activeFluidTab, setActiveFluidTab] = useState('reposicion')
@@ -156,87 +115,8 @@ export function AppContextProvider({ children }) {
     }
   }
 
-  const saveCalcSnapshot = (calc) => {
-    const drug = DB_MEDICAMENTOS.find(d => d.id === calc.drugId)
-    if (!drug || !calc.drugId) return
-    const snapshot = {
-      id: Date.now(),
-      createdAt: new Date().toISOString(),
-      drugId: calc.drugId,
-      drugName: drug.meta_data.nombre_generico,
-      species: patient.especie,
-      peso: patient.peso,
-      dose: calc.dose,
-      concentration: calc.concentration,
-      tomas: calc.tomas || 1,
-      presIndex: calc.presIndex || 0,
-      protIndex: calc.protIndex || 0
-    }
-    setCalcHistory(prev => [snapshot, ...prev].slice(0, 8))
-  }
-
-  const restoreCalcFromSnapshot = (snapshot) => {
-    setCalcs(prev => [...prev, {
-      id: Date.now(),
-      drugId: snapshot.drugId,
-      dose: snapshot.dose,
-      concentration: snapshot.concentration,
-      tomas: snapshot.tomas,
-      presIndex: snapshot.presIndex,
-      protIndex: snapshot.protIndex
-    }])
-  }
-
-  const drugGroups = useMemo(() => {
-    const groups = DB_MEDICAMENTOS.map(m => {
-      const raw = m.meta_data.grupo_farmacologico || ''
-      return raw.split(/[,/]/)[0]?.trim() || 'Otros'
-    })
-    return Array.from(new Set(groups)).slice(0, 12)
-  }, [DB_MEDICAMENTOS])
-
-  // Species available in current medicamentos DB (filter SPECIES_LIST)
-  const availableSpecies = useMemo(() => {
-    try {
-      const keys = new Set()
-      DB_MEDICAMENTOS.forEach(m => {
-        const pd = m.parametros_dosificacion || {}
-        Object.keys(pd).forEach(k => expandSpeciesKey(k).forEach(species => keys.add(species)))
-      })
-      const filtered = SPECIES_LIST.filter(s => keys.has(s.id))
-      return filtered.length ? filtered : SPECIES_LIST
-    } catch (e) {
-      return SPECIES_LIST
-    }
-  }, [DB_MEDICAMENTOS])
-
-  const searchSuggestions = useMemo(() => {
-    const term = searchTerm.trim().toLowerCase()
-    if (!term) return []
-    return DB_MEDICAMENTOS
-      .filter(m => {
-        const hasSpecies = Boolean(getSpeciesProtocols(m, patient.especie)?.length)
-        const name = m.meta_data.nombre_generico.toLowerCase()
-        const group = m.meta_data.grupo_farmacologico.toLowerCase()
-        const brands = (m.meta_data.nombres_comerciales || []).join(' ').toLowerCase()
-        return hasSpecies && (name.includes(term) || group.includes(term) || brands.includes(term))
-      })
-      .slice(0, 6)
-  }, [searchTerm, DB_MEDICAMENTOS, patient.especie])
-
   const sortedAndFilteredDrugs = useMemo(() => {
-    let filtered = DB_MEDICAMENTOS.filter(m => {
-      const name = m.meta_data.nombre_generico.toLowerCase()
-      const group = m.meta_data.grupo_farmacologico.toLowerCase()
-      const brands = (m.meta_data.nombres_comerciales || []).join(' ').toLowerCase()
-      const term = searchTerm.toLowerCase()
-      const matchesSearch = !term || name.includes(term) || group.includes(term) || brands.includes(term)
-      const hasSpecies = Boolean(getSpeciesProtocols(m, patient.especie)?.length)
-      const matchesFavorites = !showFavoritesOnly || favorites.includes(m.id)
-      const groupBase = m.meta_data.grupo_farmacologico.split(/[,/]/)[0]?.trim() || ''
-      const matchesGroup = !filterGroup || groupBase === filterGroup
-      return matchesSearch && hasSpecies && matchesFavorites && matchesGroup
-    })
+    let filtered = DB_MEDICAMENTOS.filter(m => m.meta_data.nombre_generico.toLowerCase().includes(searchTerm.toLowerCase()) || m.meta_data.grupo_farmacologico.toLowerCase().includes(searchTerm.toLowerCase()))
     filtered.sort((a,b) => {
       const aFav = favorites.includes(a.id)
       const bFav = favorites.includes(b.id)
@@ -245,7 +125,7 @@ export function AppContextProvider({ children }) {
       return a.meta_data.nombre_generico.localeCompare(b.meta_data.nombre_generico)
     })
     return filtered
-  }, [searchTerm, favorites, patient.especie, showFavoritesOnly, filterGroup, DB_MEDICAMENTOS])
+  }, [searchTerm, favorites])
 
   // Calculator logic
   const addDrug = () => setCalcs([...calcs, { id: Date.now(), drugId: '', dose: 0, concentration: 1, tomas: 1, presIndex: 0, protIndex: 0 }])
@@ -258,11 +138,8 @@ export function AppContextProvider({ children }) {
     favorites, toggleFavorite,
     drugImages, triggerImageUpload,
     searchTerm, setSearchTerm, sortedAndFilteredDrugs,
-    searchSuggestions, filterGroup, setFilterGroup, showFavoritesOnly, setShowFavoritesOnly, drugGroups,
-    calcHistory, saveCalcSnapshot, restoreCalcFromSnapshot,
     fileInputRef, handleFileChange,
     SPECIES_LIST,
-    availableSpecies,
     biologicalData,
     // fluids
     activeFluidTab, setActiveFluidTab, deshidratacion, setDeshidratacion, perdidas, setPerdidas, mantRate, setMantRate, horasPasar, setHorasPasar, equipoGoteo, setEquipoGoteo, bolsaVolumen, setBolsaVolumen,
@@ -270,8 +147,7 @@ export function AppContextProvider({ children }) {
     // cri / diluciones
     criPeso, setCriPeso, criDosis, setCriDosis, criConcFarmaco, setCriConcFarmaco, criVelFluidos, setCriVelFluidos, criData,
     dilConcFarmaco, setDilConcFarmaco, dilConcDeseada, setDilConcDeseada, dilVolFinal, setDilVolFinal, dilucionesData,
-    // API
-    DB_MEDICAMENTOS, apiLoading, apiError, apiClient
+    DB_MEDICAMENTOS
   }
 
   return (

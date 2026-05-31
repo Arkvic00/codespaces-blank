@@ -36,11 +36,17 @@ async function startServer() {
     process.exit(1);
   }
 
-  try {
-    await connectRedis();
-    console.log('✅ Conexión Redis establecida');
-  } catch (error) {
-    console.warn('⚠️ No se pudo conectar a Redis; el caché no estará disponible:', error.message);
+  const redisEnabled = process.env.REDIS_DISABLED !== 'true' && process.env.REDIS_URL !== 'disabled' && process.env.REDIS_URL !== 'false' && process.env.REDIS_URL !== '';
+
+  if (redisEnabled) {
+    try {
+      await connectRedis();
+      console.log('✅ Conexión Redis establecida');
+    } catch (error) {
+      console.warn('⚠️ No se pudo conectar a Redis; el caché no estará disponible:', error.message);
+    }
+  } else {
+    console.log('⚠️ Redis deshabilitado; usando solo SQLite para todas las consultas.');
   }
 
   app.listen(PORT, () => {
@@ -50,6 +56,7 @@ async function startServer() {
     console.log(`   GET  /api/medicamentos/:id`);
     console.log(`   GET  /api/medicamentos/buscar?q=term`);
     console.log(`   GET  /api/medicamentos/especie/:especie`);
+    console.log(`   GET  /api/medicamentos/:id/resumen`);
     console.log(`   POST /api/medicamentos/validar`);
     console.log(`\n`);
   });
