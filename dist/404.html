@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>Dosis Perronas</title>
+    <script type="text/javascript">
+      // SPA Router para GitHub Pages
+      // Cuando se accede a una ruta que no existe como archivo,
+      // GitHub Pages sirve 404.html. Este script guarda la ruta
+      // en localStorage y redirige a index.html
+      (function() {
+        const pathname = window.location.pathname;
+        // Guardar la ruta en localStorage
+        localStorage.setItem('redirect', pathname);
+        
+        // Extraer el nombre del repo (primer segmento)
+        const segments = pathname.split('/').filter(Boolean);
+        const repoOrEmpty = segments.length > 0 ? segments[0] : '';
+        
+        // Redirigir a la raíz del repo
+        const redirectTo = repoOrEmpty ? `/${repoOrEmpty}/` : '/';
+        window.location.replace(redirectTo);
+      })();
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
