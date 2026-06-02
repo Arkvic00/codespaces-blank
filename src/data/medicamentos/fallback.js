@@ -9,10 +9,10 @@ export const SPECIES_LIST = [
     { id: 'ave', label: 'AVES', icon: '🦜' },
     { id: 'aves_corral', label: 'AVES DE CORRAL', icon: '🐔' },
     { id: 'sugar_gliders', label: 'SUGAR GLIDERS', icon: '🐿️' },
-    { id: 'erizos', label: 'ERIZOS', icon: '🦔' },
+    { id: 'erizo', label: 'ERIZOS', icon: '🦔' },
     { id: 'roedores', label: 'ROEDORES', icon: '🐭' },
     { id: 'conejo', label: 'CONEJO', icon: '🐰' },
-    { id: 'hurones', label: 'HURONES', icon: '🦦' },
+    { id: 'mustelidos', label: 'MUSTÉLIDOS', icon: '🦦' },
     { id: 'primates', label: 'PRIMATES', icon: '🐒' },
     { id: 'cobaya', label: 'COBAYA', icon: '🐹' },
     { id: 'axolote', label: 'AXOLOTE', icon: '👾' }
@@ -203,12 +203,12 @@ export const DB_MEDICAMENTOS = [
       ],
       mustelidos: [
         {
-          indicacion: 'Ferrets',
+          indicacion: 'Hurones',
           vias: ['IM', 'SC'],
           frecuencia: { texto_ui: 'Según necesidad' },
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 0.25, dosis_min: 0.25, dosis_max: 0.75, unidad_calculo: 'mg/kg' },
           notas: 'Tranquilización.'
-        },
+        }
       ],
       conejo: [
         {
@@ -374,7 +374,7 @@ export const DB_MEDICAMENTOS = [
       'Interferencia con HPLC para teofilina.'
     ],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Glaucoma / Alcalosis',
           vias: ['PO', 'IV'],
@@ -388,7 +388,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 4, dosis_min: 4, dosis_max: 4, unidad_calculo: 'mg/kg' }
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Glaucoma',
           vias: ['PO'],
@@ -396,7 +396,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 6, dosis_min: 6, dosis_max: 8, unidad_calculo: 'mg/kg' }
         }
       ],
-      caballos: [
+      caballo: [
         {
           indicacion: 'HYPP',
           vias: ['PO'],
@@ -460,7 +460,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['La acidificación de la orina puede alterar la excreción renal de fármacos, afectando potencialmente los niveles plasmáticos de salicilatos y fenobarbital.'],
     parametros_dosificacion: {
-      rumiantes: [
+      bovino: [
         {
           indicacion: 'Toxicosis por urea',
           vias: ['Intraruminal'],
@@ -469,7 +469,7 @@ export const DB_MEDICAMENTOS = [
           notas: 'Usar vinagre 5%. Seguir con agua fría.'
         }
       ],
-      caballos: [
+      caballo: [
         {
           indicacion: 'Prevención de enterolitos',
           vias: ['Oral / alimento'],
@@ -522,7 +522,16 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['Puede interferir con la interpretación de pruebas de función hepática si se administra en dosis masivas.'],
     parametros_dosificacion: {
-      perros_gatos: [
+      perro: [
+        {
+          indicacion: 'Antídoto hepatotoxicidad',
+          vias: ['IV', 'PO'],
+          frecuencia: { texto_ui: 'Carga seguido de mantenimiento cada 6h' },
+          math: { tipo_calculo: 'mg/kg', dosis_recomendada: 140, dosis_min: 140, dosis_max: 180, unidad_calculo: 'mg/kg' },
+          notas: 'Mantenimiento: 70 mg/kg PO o IV cada 6 horas (mínimo 7 tratamientos).'
+        }
+      ],
+      gato: [
         {
           indicacion: 'Antídoto hepatotoxicidad',
           vias: ['IV', 'PO'],
@@ -544,7 +553,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 25, dosis_min: 25, dosis_max: 25, unidad_calculo: 'mg/kg' }
         }
       ],
-      caballos: [
+      caballo: [
         {
           indicacion: 'Bolsa gutural',
           vias: ['Instilación'],
@@ -560,7 +569,7 @@ export const DB_MEDICAMENTOS = [
           notas: '4% solución retención 30-45 min o 8 g en 20 g bicarbonato en 200 mL agua.'
         }
       ],
-      exoticos: [
+      reptil: [
         {
           indicacion: 'Nebulización en tortugas',
           vias: ['Nebulización'],
@@ -621,7 +630,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['Puede elevar las concentraciones séricas de teofilina.'],
     parametros_dosificacion: {
-      aves: [
+      ave: [
         {
           indicacion: 'Herpesvirus de Pacheco',
           vias: ['PO', 'IM'],
@@ -635,7 +644,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'fija', dosis_recomendada: 25, dosis_min: 25, dosis_max: 25, unidad_calculo: 'mg' }
         }
       ],
-      perros: [
+      perro: [
         {
           indicacion: 'Herpesvirus neonatal',
           vias: ['PO'],
@@ -649,7 +658,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 20, dosis_min: 20, dosis_max: 20, unidad_calculo: 'mg/kg' }
         }
       ],
-      caballos: [
+      caballo: [
         {
           indicacion: 'Herpesvirus',
           vias: ['IV'],
@@ -657,7 +666,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 10, dosis_min: 10, dosis_max: 10, unidad_calculo: 'mg/kg' }
         }
       ],
-      reptiles: [
+      reptil: [
         {
           indicacion: 'Herpesvirus en tortugas',
           vias: ['PO', 'Tópico'],
@@ -665,7 +674,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 80, dosis_min: 80, dosis_max: 80, unidad_calculo: 'mg/kg' }
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Uso',
           vias: ['N/A'],
@@ -724,7 +733,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interacciones_medicamentosas: ['No se han reportado interacciones significativas.'],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Dosis estándar',
           vias: ['PO'],
@@ -750,7 +759,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 2.5, dosis_min: 2.5, dosis_max: 2.5, unidad_calculo: 'mg/kg' }
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Ácaros del oído / pulgas',
           vias: ['PO'],
@@ -758,7 +767,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 2.5, dosis_min: 2.5, dosis_max: 2.5, unidad_calculo: 'mg/kg' }
         }
       ],
-      cerdos: [
+      cerdo: [
         {
           indicacion: 'Sarna sarcóptica',
           vias: ['PO'],
@@ -766,7 +775,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 2.5, dosis_min: 2.5, dosis_max: 2.5, unidad_calculo: 'mg/kg' }
         }
       ],
-      aves: [
+      ave: [
         {
           indicacion: 'Piojos de aves',
           vias: ['PO'],
@@ -819,7 +828,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interacciones_medicamentosas: ['No se han reportado interacciones significativas.'],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Terminación de gestación',
           vias: ['SC'],
@@ -839,7 +848,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 10, dosis_min: 10, dosis_max: 10, unidad_calculo: 'mg/kg' }
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Terminación de gestación',
           vias: ['SC'],
@@ -853,7 +862,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 12.5, dosis_min: 10, dosis_max: 15, unidad_calculo: 'mg/kg' }
         }
       ],
-      conejos: [
+      conejo: [
         {
           indicacion: 'Prevención de implantación',
           vias: ['SC'],
@@ -861,7 +870,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 10, dosis_min: 10, dosis_max: 10, unidad_calculo: 'mg/kg' }
         }
       ],
-      ovejas: [
+      ovino_caprino: [
         {
           indicacion: 'Inducción de parto',
           vias: ['SC'],
@@ -913,7 +922,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interacciones_medicamentosas: ['No se han reportado interferencias significativas.'],
     parametros_dosificacion: {
-      bovinos: [
+      bovino: [
         {
           indicacion: 'Parásitos internos',
           vias: ['PO'],
@@ -921,7 +930,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 10, dosis_min: 10, dosis_max: 10, unidad_calculo: 'mg/kg' }
         }
       ],
-      ovinos: [
+      ovino_caprino: [
         {
           indicacion: 'Parásitos internos',
           vias: ['PO'],
@@ -929,23 +938,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 7.5, dosis_min: 7.5, dosis_max: 7.5, unidad_calculo: 'mg/kg' }
         }
       ],
-      caprinos_no_lactantes: [
-        {
-          indicacion: 'Fasciola hepatica',
-          vias: ['PO'],
-          frecuencia: { texto_ui: 'Dosis única' },
-          math: { tipo_calculo: 'mg/kg', dosis_recomendada: 10, dosis_min: 10, dosis_max: 10, unidad_calculo: 'mg/kg' }
-        }
-      ],
-      camelidos: [
-        {
-          indicacion: 'Helmintos gastrointestinales',
-          vias: ['PO'],
-          frecuencia: { texto_ui: 'Dosis única' },
-          math: { tipo_calculo: 'mg/kg', dosis_recomendada: 15, dosis_min: 15, dosis_max: 15, unidad_calculo: 'mg/kg' }
-        }
-      ],
-      conejos: [
+      conejo: [
         {
           indicacion: 'Encephalitozoon cuniculi',
           vias: ['PO'],
@@ -1007,7 +1000,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['Puede causar descensos temporales en las concentraciones séricas de calcio.'],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Prueba de dosis',
           vias: ['IV'],
@@ -1029,7 +1022,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg/h', dosis_recomendada: 0.1, dosis_min: 0.1, dosis_max: 1.7, unidad_calculo: 'mL/kg/h' }
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Uso de HSA',
           vias: ['IV'],
@@ -1085,7 +1078,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['Hipopotasemia inducida puede afectar la evaluación de electrolitos.'],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Broncodilatador',
           vias: ['PO'],
@@ -1093,7 +1086,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 0.02, dosis_min: 0.02, dosis_max: 0.05, unidad_calculo: 'mg/kg' }
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Asma aguda',
           vias: ['Inhalación'],
@@ -1101,7 +1094,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'fija', dosis_recomendada: 0.09, dosis_min: 0.09, dosis_max: 0.27, unidad_calculo: 'mg' }
         }
       ],
-      caballos: [
+      caballo: [
         {
           indicacion: 'Asma severa de rescate',
           vias: ['Inhalación'],
@@ -1169,7 +1162,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['Puede interferir con gammagrafías óseas.'],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Hipercalcemia/dolor óseo',
           vias: ['PO'],
@@ -1178,7 +1171,7 @@ export const DB_MEDICAMENTOS = [
           notas: '2 mg/kg PO cada 24h en ayunas es alternativa.'
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Hipercalcemia idiopática',
           vias: ['PO'],
@@ -1236,7 +1229,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['No se han reportado interferencias significativas.'],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Inducción IV',
           vias: ['IV'],
@@ -1250,7 +1243,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 1.2, dosis_min: 1.2, dosis_max: 2.2, unidad_calculo: 'mg/kg' }
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Inducción IV',
           vias: ['IV'],
@@ -1264,7 +1257,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 1.1, dosis_min: 1.1, dosis_max: 1.5, unidad_calculo: 'mg/kg' }
         }
       ],
-      caballos: [
+      caballo: [
         {
           indicacion: 'Inducción IV',
           vias: ['IV'],
@@ -1278,7 +1271,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg/h', dosis_recomendada: 1.5, dosis_min: 1.5, dosis_max: 5, unidad_calculo: 'mg/kg/h' }
         }
       ],
-      conejos: [
+      conejo: [
         {
           indicacion: 'Sedación profunda IM',
           vias: ['IM'],
@@ -1292,7 +1285,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 6, dosis_min: 6, dosis_max: 6, unidad_calculo: 'mg/kg' }
         }
       ],
-      ferrets: [
+      mustelidos: [
         {
           indicacion: 'Inducción',
           vias: ['IV', 'IM'],
@@ -1345,7 +1338,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['Puede aumentar niveles de amilasa y lipasa por aumento de presión del esfínter de Oddi.'],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Premedicación',
           vias: ['IV'],
@@ -1359,7 +1352,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'μg/kg/min', dosis_recomendada: 0.5, dosis_min: 0.5, dosis_max: 1, unidad_calculo: 'μg/kg/min' }
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Analgesia adjunta',
           vias: ['IV'],
@@ -1410,7 +1403,7 @@ export const DB_MEDICAMENTOS = [
       'Monitoreo de respuesta clínica en leishmaniasis.'
     ],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Urolitos de urato',
           vias: ['PO'],
@@ -1424,7 +1417,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 5, dosis_min: 5, dosis_max: 7, unidad_calculo: 'mg/kg' }
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Leishmaniasis',
           vias: ['PO'],
@@ -1432,7 +1425,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 15, dosis_min: 10, dosis_max: 20, unidad_calculo: 'mg/kg' }
         }
       ],
-      aves: [
+      ave: [
         {
           indicacion: 'Gota',
           vias: ['PO'],
@@ -1440,7 +1433,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/mL', dosis_recomendada: 1, dosis_min: 1, dosis_max: 1, unidad_calculo: 'mg/mL' }
         }
       ],
-      reptiles: [
+      reptil: [
         {
           indicacion: 'Gota',
           vias: ['PO'],
@@ -1493,7 +1486,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['Puede disminuir la captación tiroidea de I-123 o I-131.'],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Ansiedad/fobias',
           vias: ['PO'],
@@ -1501,7 +1494,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 0.02, dosis_min: 0.02, dosis_max: 0.1, unidad_calculo: 'mg/kg' }
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Ansiedad de eliminación',
           vias: ['PO'],
@@ -1515,7 +1508,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'fija', dosis_recomendada: 0.75, dosis_min: 0.5, dosis_max: 1, unidad_calculo: 'mg/gato' }
         }
       ],
-      caballos: [
+      caballo: [
         {
           indicacion: 'Manejo de agresividad',
           vias: ['PO'],
@@ -1571,7 +1564,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_medicamentosas: ['No interfiere con ensayos de progesterona endógena.'],
     parametros_dosificacion: {
-      yeguas: [
+      caballo: [
         {
           indicacion: 'Sincronización de celo',
           vias: ['PO'],
@@ -1585,7 +1578,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 0.044, dosis_min: 0.044, dosis_max: 0.088, unidad_calculo: 'mg/kg' }
         }
       ],
-      cerdas: [
+      cerdo: [
         {
           indicacion: 'Sincronización',
           vias: ['PO'],
@@ -1593,7 +1586,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/cerda', dosis_recomendada: 15, dosis_min: 15, dosis_max: 15, unidad_calculo: 'mg/cerda' }
         }
       ],
-      perros: [
+      perro: [
         {
           indicacion: 'Insuficiencia lútea',
           vias: ['PO'],
@@ -1644,7 +1637,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['No se han reportado interferencias significativas con pruebas bioquímicas estándar.'],
     parametros_dosificacion: {
-      perros_gatos: [
+      perro: [
         {
           indicacion: 'Hiperfosfatemia',
           vias: ['PO'],
@@ -1652,7 +1645,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg/día', dosis_recomendada: 30, dosis_min: 30, dosis_max: 100, unidad_calculo: 'mg/kg/día' }
         }
       ],
-      reptiles: [
+      reptil: [
         {
           indicacion: 'Hiperfosfatemia',
           vias: ['PO'],
@@ -1660,7 +1653,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 100, dosis_min: 100, dosis_max: 100, unidad_calculo: 'mg/kg' }
         }
       ],
-      chinchillas: [
+      roedores: [
         {
           indicacion: 'Hiperfosfatemia',
           vias: ['PO'],
@@ -1720,7 +1713,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interacciones_medicamentosas: ['No se han reportado interacciones significativas en el texto proporcionado.'],
     parametros_dosificacion: {
-      perros_gatos: [
+      perro: [
         {
           indicacion: 'Dolor neuropático',
           vias: ['PO'],
@@ -1729,7 +1722,7 @@ export const DB_MEDICAMENTOS = [
           notas: 'Iniciar en rango bajo y aumentar según tolerancia.'
         }
       ],
-      amazonas: [
+      ave: [
         {
           indicacion: 'Uso experimental',
           vias: ['PO'],
@@ -1782,7 +1775,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['Muestras de sangre pueden dar falsos resultados bajos al recibir betalactámicos simultáneamente.'],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Infecciones susceptibles',
           vias: ['IV', 'IM', 'SC'],
@@ -1790,7 +1783,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 15, dosis_min: 15, dosis_max: 30, unidad_calculo: 'mg/kg' }
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Infecciones susceptibles',
           vias: ['IV', 'IM', 'SC'],
@@ -1798,7 +1791,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 10, dosis_min: 10, dosis_max: 15, unidad_calculo: 'mg/kg' }
         }
       ],
-      caballos: [
+      caballo: [
         {
           indicacion: 'Sistémico adultos',
           vias: ['IV', 'IM'],
@@ -1812,7 +1805,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 20, dosis_min: 20, dosis_max: 25, unidad_calculo: 'mg/kg' }
         }
       ],
-      exoticos: [
+      reptil: [
         {
           indicacion: 'Reptiles',
           vias: ['IM', 'SC'],
@@ -1865,7 +1858,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interacciones_medicamentosas: ['El potasio sérico puede elevarse en pacientes con ERC preexistente.'],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Antifibrinolítico postoperatorio',
           vias: ['PO'],
@@ -1879,7 +1872,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 33, dosis_min: 33, dosis_max: 33, unidad_calculo: 'mg/kg' }
         }
       ],
-      caballos: [
+      caballo: [
         {
           indicacion: 'Hemorragia bolsa gutural',
           vias: ['IV'],
@@ -1934,7 +1927,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interacciones_medicamentosas: ['Puede elevar ácido úrico sérico dependiendo del método de ensayo.'],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Broncodilatador',
           vias: ['IV', 'IM'],
@@ -1942,7 +1935,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 3, dosis_min: 3, dosis_max: 11, unidad_calculo: 'mg/kg' }
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Broncodilatador',
           vias: ['IV', 'IM'],
@@ -1950,7 +1943,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 3, dosis_min: 3, dosis_max: 11, unidad_calculo: 'mg/kg' }
         }
       ],
-      caballos: [
+      caballo: [
         {
           indicacion: 'Asma equina severa',
           vias: ['IV'],
@@ -2006,19 +1999,19 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['Puede elevar falsamente niveles de algunas hormonas tiroideas.'],
     parametros_dosificacion: {
-      reptiles: [
+      reptil: [
         { indicacion: 'Estado actual', vias: ['IV'], frecuencia: { texto_ui: 'Sin información registrada' }, math: { tipo_calculo: 'mg/kg', dosis_recomendada: 0, dosis_min: 0, dosis_max: 0, unidad_calculo: 'mg/kg' } }]
       ,
-      anfibios: [
+      axolote: [
         { indicacion: 'Estado actual', vias: ['IV'], frecuencia: { texto_ui: 'Sin información registrada' }, math: { tipo_calculo: 'mg/kg', dosis_recomendada: 0, dosis_min: 0, dosis_max: 0, unidad_calculo: 'mg/kg' } }]
       ,
-      aves: [
+      ave: [
         { indicacion: 'Estado actual', vias: ['IV'], frecuencia: { texto_ui: 'Sin información registrada' }, math: { tipo_calculo: 'mg/kg', dosis_recomendada: 0, dosis_min: 0, dosis_max: 0, unidad_calculo: 'mg/kg' } }]
       ,
-      peces: [
+      axolote: [
         { indicacion: 'Estado actual', vias: ['IV'], frecuencia: { texto_ui: 'Sin información registrada' }, math: { tipo_calculo: 'mg/kg', dosis_recomendada: 0, dosis_min: 0, dosis_max: 0, unidad_calculo: 'mg/kg' } }]
       ,
-      mamiferos_pequenos: [
+      roedores: [
         { indicacion: 'Estado actual', vias: ['IV'], frecuencia: { texto_ui: 'Sin información registrada' }, math: { tipo_calculo: 'mg/kg', dosis_recomendada: 0, dosis_min: 0, dosis_max: 0, unidad_calculo: 'mg/kg' } }]
     },
     seguridad_y_alertas: {
