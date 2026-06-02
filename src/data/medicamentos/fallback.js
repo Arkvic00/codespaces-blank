@@ -5,8 +5,8 @@ export const SPECIES_LIST = [
     { id: 'bovino', label: 'BOVINO', icon: '🐮' },
     { id: 'cerdo', label: 'CERDO', icon: '🐷' },
     { id: 'ovino_caprino', label: 'OVINO_CAPRINO', icon: '🐐' },
-    { id: 'reptiles', label: 'REPTILES', icon: '🦎' },
-    { id: 'aves', label: 'AVES', icon: '🦜' },
+    { id: 'reptil', label: 'REPTILES', icon: '🦎' },
+    { id: 'ave', label: 'AVES', icon: '🦜' },
     { id: 'aves_corral', label: 'AVES DE CORRAL', icon: '🐔' },
     { id: 'sugar_gliders', label: 'SUGAR GLIDERS', icon: '🐿️' },
     { id: 'erizos', label: 'ERIZOS', icon: '🦔' },
@@ -155,7 +155,7 @@ export const DB_MEDICAMENTOS = [
       'Disminución transitoria del hematocrito (secuestro esplénico).'
     ],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Premedicación',
           vias: ['IM', 'SC', 'IV'],
@@ -171,7 +171,7 @@ export const DB_MEDICAMENTOS = [
           notas: 'Dosis máxima total recomendada frecuentemente 3-4 mg/perro, NO mg/kg.'
         }
       ],
-      gatos: [
+      gato: [
         {
           indicacion: 'Sedación preanestesia',
           vias: ['IV', 'IM', 'SC'],
@@ -187,7 +187,7 @@ export const DB_MEDICAMENTOS = [
           notas: '0.25 mg/gato IM o 2.5 mg/gato PO cada 8h.'
         }
       ],
-      caballos: [
+      caballo: [
         {
           indicacion: 'Sedación / restricción',
           vias: ['IM', 'IV'],
@@ -201,7 +201,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 0.05, dosis_min: 0.04, dosis_max: 0.066, unidad_calculo: 'mg/kg' }
         }
       ],
-      exoticos: [
+      mustelidos: [
         {
           indicacion: 'Ferrets',
           vias: ['IM', 'SC'],
@@ -209,6 +209,8 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 0.25, dosis_min: 0.25, dosis_max: 0.75, unidad_calculo: 'mg/kg' },
           notas: 'Tranquilización.'
         },
+      ],
+      conejo: [
         {
           indicacion: 'Conejos',
           vias: ['IM', 'SC'],
@@ -216,6 +218,8 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 0.75, dosis_min: 0.75, dosis_max: 1, unidad_calculo: 'mg/kg' },
           notas: 'Sedación o premedicación según indicación.'
         },
+      ],
+      reptil: [
         {
           indicacion: 'Reptiles',
           vias: ['IM'],
@@ -279,7 +283,7 @@ export const DB_MEDICAMENTOS = [
     ],
     interferencia_laboratorio: ['Puede causar resultados falsos positivos en la medición urinaria de ácido 5-hidroxiindolacético (5-HIAA).'],
     parametros_dosificacion: {
-      perros: [
+      perro: [
         {
           indicacion: 'Analgésico/Antipirético',
           vias: ['PO', 'Rectal'],
@@ -288,7 +292,7 @@ export const DB_MEDICAMENTOS = [
           notas: 'Si el tratamiento excede 5 días, considerar ajuste a cada 12h en el rango bajo.'
         }
       ],
-      caballos: [
+      caballo: [
         {
           indicacion: 'Analgésico/Antipirético',
           vias: ['PO'],
@@ -296,7 +300,7 @@ export const DB_MEDICAMENTOS = [
           math: { tipo_calculo: 'mg/kg', dosis_recomendada: 20, dosis_min: 20, dosis_max: 20, unidad_calculo: 'mg/kg' }
         }
       ],
-      pequenos_mamiferos: [
+      roedores: [
         {
           indicacion: 'Analgésico',
           vias: ['PO'],
@@ -305,7 +309,7 @@ export const DB_MEDICAMENTOS = [
           notas: 'Referencia a Children’s Tylenol.'
         }
       ],
-      gatos_hurones: [
+      gato: [
         {
           indicacion: 'Uso',
           vias: ['N/A'],
